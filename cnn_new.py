@@ -1,14 +1,3 @@
-# Convolutional Neural Network
-
-# Installing Tensorflow
-# pip install tensorflow
-
-# Installing Keras
-# pip install --upgrade keras
-
-# Part 1 - Building the CNN
-
-# Importing the Keras libraries and packages
 from keras.models import Sequential
 from keras.layers import Conv2D
 from keras.layers import MaxPooling2D
@@ -65,28 +54,28 @@ classifier.compile(optimizer = 'adam', loss = 'categorical_crossentropy', metric
 from keras.preprocessing.image import ImageDataGenerator
 
 train_datagen = ImageDataGenerator(rescale = 1./255,
-                                   shear_range = 0.2,
-                                   zoom_range = 0.2,
-                                   horizontal_flip = True)
+ shear_range = 0.2,
+ zoom_range = 0.2,
+ horizontal_flip = True)
 
 test_datagen = ImageDataGenerator(rescale = 1./255)
 
 Training = train_datagen.flow_from_directory('Fruit-Images-Dataset/Training',
-                                                 target_size = (100, 100),
-                                                 batch_size = 32,
-                                                 class_mode = 'categorical')
+   target_size = (100, 100),
+   batch_size = 32,
+   class_mode = 'categorical')
 
 Validation = test_datagen.flow_from_directory('Fruit-Images-Dataset/Validation',
-                                            target_size = (100, 100),
-                                            batch_size = 32,
-                                            class_mode = 'categorical')
+    target_size = (100, 100),
+    batch_size = 32,
+    class_mode = 'categorical')
 
 
 history = classifier.fit_generator(Training,
-                         steps_per_epoch = 4000,
-                         epochs = 25,
-                         validation_data = Validation,
-                         validation_steps = 4000)
+   steps_per_epoch = 4000,
+   epochs = 25,
+   validation_data = Validation,
+   validation_steps = 4000)
 classifier.summary()
 
 
@@ -95,21 +84,21 @@ acc = history.history['acc']
 val_acc = history.history['val_acc']
 loss = history.history['loss']
 val_loss = history.history['val_loss']
- 
+
 epochs = range(len(acc))
- 
+
 plt.plot(epochs, acc, 'b', label='Training acc')
 plt.plot(epochs, val_acc, 'r', label='Validation acc')
 plt.title('Training and validation accuracy')
 plt.legend()
- 
+
 plt.figure()
- 
+
 plt.plot(epochs, loss, 'b', label='Training loss')
 plt.plot(epochs, val_loss, 'r', label='Validation loss')
 plt.title('Training and validation loss')
 plt.legend()
- 
+
 plt.show()
 
 
@@ -188,4 +177,4 @@ for i in range(no_of_classes):
     if (result[0][i] == 1.0):
         img_path = 'Fruit-Images-Dataset/Training/'+name_of_classes[i]+'/2_100.jpg'
         print ('Predicted:',name_of_classes[i])
-Image.open(img_path)
+        Image.open(img_path)
